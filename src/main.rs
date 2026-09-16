@@ -1,48 +1,106 @@
+use std::sync::Arc;
+use std::os::fd::AsRawFd;
+
 use calloop::{
-    generic::Generic,
-    EventLoop,
-    Interest,
-    Mode,
+generic::Generic,
+EventLoop,
+Interest,
+Mode,
 };
 
-// Our listening socket manages clients connecting to the compositor
-use smithay::reexports::wayland_server::{
-    Display,
-    ListeningSocket,
+use smithay::{
+reexports::wayland_server::{
+backend::{ClientData, ClientId, DisconnectReason},
+Display,
+},
+wayland::socket::ListeningSocketSource,
 };
 
-// Smithay
-fn main(){
-	// wayland display
-	let display = Display::<()>::new().unwrap();
-	let display_handle = display.handle();
+struct ClientState;
 
-	// iterate to bind our socket
-	let socket = ListeningSocket::bind_auto("wayland", 0..10).unwrap();
+impl ClientData for ClientState {
+fn initialized(&self, client_id: ClientId) {
+println!("Client initialized: {:?}", client_id);
+}
 
-	// loop
-	let mut event_loop: EventLoop<()> = EventLoop::try_new().unwrap();
-	
-	println!("Wayland display created: {:p}, socket as well: {:p}", &display, &socket);
-	println!("\n Socket name: {:?}", socket.socket_name());
-	println!("\n Display Handle: {:?}", display_handle);
+fn disconnected(
+    &self,
+    client_id: ClientId,
+    reason: DisconnectReason,
+) {
+    println!(
+        "Client disconnected: {:?}, reason: {:?}",
+        client_id, reason
+    );
+}
 
-	// wrap listening socket as calloop even source
-	let source = Generic::new(socket, Interest::READ, Mode::Level,);
+}
 
-	// grab handle that lets us register in the calloop
-	let handle = event_loop.handle();
-	
-	handle
-		.insert_source(source, |event, _, _| {
-			println!("Socket event: {:?}", event);
+struct State {
+display: Display<()>,
+}
 
-			Ok(calloop::PostAction::Continue)
-		})
-		.unwrap();
+fn main() {
+let display = Display::<()>::new().unwrap();
 
-	// wait for stuff to happen...
-	event_loop
-		.run(None, &mut (), |_| {})
-		.unwrap();
+let mut state = State {
+    display,
+};
+
+let listening_socket = ListeningSocketSource::new_auto().unwrap();
+
+println!(
+    "Socket name: {:?}",
+    listening_socket.socket_name()
+);
+
+let mut event_loop: EventLoop<State> =
+    EventLoop::try_new().unwrap();
+
+let handle = event_loop.handle();
+
+// get the wayland display FD as a raw FD.
+let display_fd = state.display.backend().poll_fd().as_raw_fd();
+
+// wayland display events.
+handle
+    .insert_source(
+        Generic::new(
+            unsafe {
+                std::os::fd::BorrowedFd::borrow_raw(display_fd)
+            },
+            Interest::READ,
+            Mode::Level,
+        ),
+        |_, _, state| {
+            state.display.dispatch_clients(&mut ()).unwrap();
+
+            Ok(calloop::PostAction::Continue)
+        },
+    )
+    .unwrap();
+
+// new wayland clients.
+handle
+    .insert_source(
+        listening_socket,
+        |client_stream, _, state| {
+            println!("Client connected!");
+
+            state
+                .display
+                .handle()
+                .insert_client(
+                    client_stream,
+                    Arc::new(ClientState),
+                )
+                .unwrap();
+        },
+    )
+    .unwrap();
+
+event_loop
+    .run(None, &mut state, |_| {})
+    .unwrap();
+
 }
