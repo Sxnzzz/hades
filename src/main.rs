@@ -73,8 +73,11 @@ handle
             Mode::Level,
         ),
         |_, _, state| {
+    		println!("Wayland FD readable");
+        
             state.display.dispatch_clients(&mut ()).unwrap();
-
+            state.display.flush_clients().unwrap();
+            
             Ok(calloop::PostAction::Continue)
         },
     )
