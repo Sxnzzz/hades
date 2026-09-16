@@ -1,10 +1,17 @@
-use smithay::reexports::wayland_server::{Display, ListeningSocket};
-use calloop::EventLoop;
+use calloop::{
+    generic::Generic,
+    EventLoop,
+    Interest,
+    Mode,
+};
 
+// Our listening socket manages clients connecting to the compositor
+use smithay::reexports::wayland_server::{
+    Display,
+    ListeningSocket,
+};
 
 // Smithay
-// Our listening socket manages clients connecting to the compositor
-
 fn main(){
 	// wayland display
 	let display = Display::<()>::new().unwrap();
@@ -19,6 +26,20 @@ fn main(){
 	println!("Wayland display created: {:p}, socket as well: {:p}", &display, &socket);
 	println!("\n Socket name: {:?}", socket.socket_name());
 	println!("\n Display Handle: {:?}", display_handle);
+
+	// wrap listening socket as calloop even source
+	let source = Generic::new(socket, Interest::READ, Mode::Level,);
+
+	// grab handle that lets us register in the calloop
+	let handle = event_loop.handle();
+	
+	handle
+		.insert_source(source, |event, _, _| {
+			println!("Socket event: {:?}", event);
+
+			Ok(calloop::PostAction::Continue)
+		})
+		.unwrap();
 
 	// wait for stuff to happen...
 	event_loop
