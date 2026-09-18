@@ -1,8 +1,0 @@
-[package]
-name = "hadeswm"
-version = "0.0.1"
-edition = "2024"
-
-[dependencies]
-smithay = "0.7"
-calloop = "0.14"
