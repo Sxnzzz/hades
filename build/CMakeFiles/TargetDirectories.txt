@@ -1,0 +1,3 @@
+/home/senz/Projects/hades/build/CMakeFiles/hades.dir
+/home/senz/Projects/hades/build/CMakeFiles/edit_cache.dir
+/home/senz/Projects/hades/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,5 @@
+# ninja log v7
+2	35	1789702633961224837	build.ninja	4df9668ff757d753
+2	35	1789702633961224837	/home/senz/Projects/hades/build/cmake_install.cmake	4df9668ff757d753
+1	67	1789701574488842750	CMakeFiles/hades.dir/src/main.c.o	296255dca3ccf74a
+68	119	1789701574555841440	hades	dc2d5d3601a544d4
