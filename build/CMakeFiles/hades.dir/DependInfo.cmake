@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/senz/hades/src/wlroots_backend.c" "CMakeFiles/hades.dir/src/wlroots_backend.c.o" "gcc" "CMakeFiles/hades.dir/src/wlroots_backend.c.o.d"
   "/home/senz/hades/src/main.cpp" "CMakeFiles/hades.dir/src/main.cpp.o" "gcc" "CMakeFiles/hades.dir/src/main.cpp.o.d"
   "" "hades" "gcc" "CMakeFiles/hades.dir/link.d"
   )

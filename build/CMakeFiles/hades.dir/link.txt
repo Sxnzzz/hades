@@ -1,1 +1,1 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/hades.dir/link.d CMakeFiles/hades.dir/src/main.cpp.o -o hades  /usr/lib/libwlroots-0.20.so /usr/lib/libwayland-server.so -lm
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/hades.dir/link.d CMakeFiles/hades.dir/src/main.cpp.o CMakeFiles/hades.dir/src/wlroots_backend.c.o -o hades  /usr/lib/libwlroots-0.20.so /usr/lib/libwayland-server.so -lm

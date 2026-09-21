@@ -153,6 +153,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/wlroots_backend.o: src/wlroots_backend.c.o
+.PHONY : src/wlroots_backend.o
+
+# target to build an object file
+src/wlroots_backend.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/src/wlroots_backend.c.o
+.PHONY : src/wlroots_backend.c.o
+
+src/wlroots_backend.i: src/wlroots_backend.c.i
+.PHONY : src/wlroots_backend.i
+
+# target to preprocess a source file
+src/wlroots_backend.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/src/wlroots_backend.c.i
+.PHONY : src/wlroots_backend.c.i
+
+src/wlroots_backend.s: src/wlroots_backend.c.s
+.PHONY : src/wlroots_backend.s
+
+# target to generate assembly for a file
+src/wlroots_backend.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/src/wlroots_backend.c.s
+.PHONY : src/wlroots_backend.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +189,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/wlroots_backend.o"
+	@echo "... src/wlroots_backend.i"
+	@echo "... src/wlroots_backend.s"
 .PHONY : help
 
 

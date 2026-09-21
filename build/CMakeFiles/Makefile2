@@ -85,12 +85,12 @@ clean: CMakeFiles/hades.dir/clean
 CMakeFiles/hades.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senz/hades/build/CMakeFiles --progress-num=1,2 "Built target hades"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senz/hades/build/CMakeFiles --progress-num=1,2,3 "Built target hades"
 .PHONY : CMakeFiles/hades.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/hades.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/senz/hades/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/senz/hades/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/hades.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/senz/hades/build/CMakeFiles 0
 .PHONY : CMakeFiles/hades.dir/rule
@@ -102,7 +102,7 @@ hades: CMakeFiles/hades.dir/rule
 # codegen rule for target.
 CMakeFiles/hades.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hades.dir/build.make CMakeFiles/hades.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senz/hades/build/CMakeFiles --progress-num=1,2 "Finished codegen for target hades"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/senz/hades/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target hades"
 .PHONY : CMakeFiles/hades.dir/codegen
 
 # clean rule for target.
